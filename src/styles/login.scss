@@ -1,0 +1,61 @@
+@import "./variables.scss";
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $grayBG;
+
+  .login__container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .login__iphone {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .login__iphone {
+        display: revert;
+      }
+    }
+    .login__form {
+      width: 250px;
+      max-width: 90vw;
+      text-align: center;
+      border: 1px solid $grayPrimary;
+      padding: 20px;
+      background-color: white;
+      img {
+        max-width: 150px;
+        padding: 10px 0;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        input {
+          height: 30px;
+          border: 1px solid $grayPrimary;
+          color: $graySecondary;
+        }
+
+        button {
+          height: 30px;
+          background-color: $blueSecondary;
+          color: white;
+          cursor: pointer;
+        }
+      }
+      p {
+        padding: 20px 0 10px 0;
+        a {
+            text-decoration: none;
+        }
+      }
+    }
+  }
+}
