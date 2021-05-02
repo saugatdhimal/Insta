@@ -20,6 +20,7 @@ function Login() {
         </div>
         <div className="login__form">
           <img src="/images/logo.png" alt="instagram logo" />
+          
           <form onSubmit={() => console.log(emailAddress, password)}>
             <input
               aria-label="Enter your email address"
@@ -27,7 +28,6 @@ function Login() {
               placeholder="Email address"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
-              required={true}
             />
             <input
               aria-label="Enter your password"
@@ -35,15 +35,14 @@ function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required={true}
             />
-            <button disabled={isInvalid} type="submit">
+            <button disabled={isInvalid} type="submit" className={isInvalid ? 'btnInvalid' : ''}>
               Log In
             </button>
           </form>
-          <p>
+          <div>
             Don't have an account? <Link to="/signup"> Sign Up</Link>
-          </p>
+          </div>
         </div>
       </div>
     </div>

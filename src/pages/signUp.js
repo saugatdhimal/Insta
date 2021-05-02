@@ -49,7 +49,6 @@ function SignUp() {
               placeholder="Email address"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
-              required={true}
             />
             <input
               aria-label="Enter your password"
@@ -57,15 +56,14 @@ function SignUp() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required={true}
             />
-            <button disabled={isInvalid} type="submit">
+            <button disabled={isInvalid} type="submit" className={isInvalid ? 'btnInvalid' : ''}>
               Sign Up
             </button>
           </form>
-          <p>
+          <div>
             Already have an account? <Link to="/login">Login</Link>
-          </p>
+          </div>
         </div>
       </div>
     </div>
