@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/signup.scss";
 import { Link, useHistory } from "react-router-dom";
+import { doesUsernameExist } from "../firebase/service";
+import { auth, db } from "../firebase/firebase";
+import { LOGIN } from "../routes";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -10,6 +13,42 @@ function SignUp() {
   const [error, setError] = useState("");
   const isInvalid = password === "";
   const history = useHistory();
+
+  useEffect(() => {
+    document.title = "Sign Up - Instagram";
+  }, []);
+
+  const handleSignUp = async (event) => {
+    event.preventDefault();
+    const usernameExist = await doesUsernameExist(username);
+
+    if (!usernameExist) {
+      try {
+        await auth
+          .createUserWithEmailAndPassword(emailAddress, password)
+          .then((authUser) => {
+            db.collection("users").doc(authUser.user.uid).set({
+              userId: authUser.user.uid,
+              username: username.toLowerCase(),
+              fullName: fullName,
+              emailAddress: emailAddress.toLowerCase(),
+              following: [],
+              followers: [],
+              dateCreated: Date.now(),
+            })
+            
+          });
+        history.push("/");
+      } catch (error) {
+        setEmailAddress("");
+        setPassword("");
+        setError(error.message);
+      }
+    } else {
+      setUsername("");
+      setError("That username is already taken, please try another.");
+    }
+  };
 
   return (
     <div className="signup">
@@ -22,10 +61,10 @@ function SignUp() {
         </div>
         <div className="signup__form">
           <img src="/images/logo.png" alt="instagram logo" />
+          {error && <p className="signup__error">{error}</p>}
           <form
-            onSubmit={() =>
-              console.log(username, fullName, emailAddress, password)
-            }
+            onSubmit={handleSignUp}
+            method="POST"
           >
             <input
               aria-label="Enter your username"
@@ -57,12 +96,16 @@ function SignUp() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button disabled={isInvalid} type="submit" className={isInvalid ? 'btnInvalid' : ''}>
+            <button
+              disabled={isInvalid}
+              type="submit"
+              className={isInvalid ? "btnInvalid" : ""}
+            >
               Sign Up
             </button>
           </form>
           <div>
-            Already have an account? <Link to="/login">Login</Link>
+            Already have an account? <Link to={LOGIN}>Login</Link>
           </div>
         </div>
       </div>

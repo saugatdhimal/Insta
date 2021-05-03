@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/login.scss";
 import { Link, useHistory } from "react-router-dom";
+import { auth } from "../firebase/firebase";
+import { SIGN_UP } from "../routes";
 
 function Login() {
   const [emailAddress, setEmailAddress] = useState("");
@@ -8,6 +10,23 @@ function Login() {
   const [error, setError] = useState("");
   const isInvalid = password === "" || emailAddress === "";
   const history = useHistory();
+
+  useEffect(() => {
+    document.title = "Login - Instagram";
+  })
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      await auth.signInWithEmailAndPassword(emailAddress, password)
+        history.push('/') 
+    } catch (error) {
+      setEmailAddress("")
+      setPassword("");
+      setError(error.message);
+    }
+  }
 
   return (
     <div className="login">
@@ -20,8 +39,8 @@ function Login() {
         </div>
         <div className="login__form">
           <img src="/images/logo.png" alt="instagram logo" />
-          
-          <form onSubmit={() => console.log(emailAddress, password)}>
+          {error && <p className="login__error">{error}</p>}
+          <form onSubmit={handleLogin} method="POST">
             <input
               aria-label="Enter your email address"
               type="email"
@@ -41,7 +60,7 @@ function Login() {
             </button>
           </form>
           <div>
-            Don't have an account? <Link to="/signup"> Sign Up</Link>
+            Don't have an account? <Link to={SIGN_UP}> Sign Up</Link>
           </div>
         </div>
       </div>

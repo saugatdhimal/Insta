@@ -1,0 +1,10 @@
+@import './variables.scss';
+
+.timeline {
+    .timeline__top{
+        height: 50px;
+        border: 1px solid $grayPrimary;
+        border-radius: 2px;
+        color: white;
+    }
+}
