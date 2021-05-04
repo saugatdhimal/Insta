@@ -6,10 +6,11 @@ import {
   Redirect,
 } from "react-router-dom";
 import { auth } from "./firebase/firebase";
-import { getUserById } from "./firebase/service";
 import { DASHBOARD, LOGIN, SIGN_UP } from "./routes";
 import { lazy, Suspense } from "react";
 import FallbackLoading from "./components/fallbackLoading";
+import useUser from "./hooks/useUser";
+import UserContext from "./context/UserContext";
 
 const Login = lazy(() => import("./pages/login"));
 const SignUp = lazy(() => import("./pages/signUp"));
@@ -17,18 +18,15 @@ const Dashboard = lazy(() => import("./pages/dashboard"));
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const {activeUser, setActiveUser} = useUser(user?.userId)
   
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
-      async function getUserData() {
-        const userData = await getUserById(userAuth.uid);
-        localStorage.setItem("user", JSON.stringify(userData));
-        setUser(userData);
-      }
-
       if (userAuth) {
         // User is signed in
-        getUserData()
+        const userData = {userId: userAuth.uid}
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
       } else {
         // User is signed out
         localStorage.removeItem('user')
@@ -37,6 +35,7 @@ function App() {
     });
   }, []);
   return (
+    <UserContext.Provider value={{activeUser, setActiveUser}}>
     <Router>
       <Suspense fallback={<FallbackLoading />}>
         <Switch>
@@ -47,11 +46,12 @@ function App() {
             {!user ? <SignUp /> : <Redirect to={DASHBOARD} />}
           </Route>
           <Route exact path={DASHBOARD}>
-            <Dashboard user={user} />
+            {user ? <Dashboard user={user} /> : <Redirect to={LOGIN} />}
           </Route>
         </Switch>
       </Suspense>
     </Router>
+    </UserContext.Provider>
   );
 }
 

@@ -2,9 +2,32 @@
 
 .timeline {
     .timeline__top{
-        height: 50px;
+        height: 110px;
         border: 1px solid $grayPrimary;
-        border-radius: 2px;
-        color: white;
+        border-radius: 3px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 0 20px;
+        .timeline__profileSkeleton {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .timeline__profileImg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            img {
+                width: 60px;
+                border-radius: 50%;
+            }
+            p{
+                font-size: 13px;
+            }
+        }
     }
 }

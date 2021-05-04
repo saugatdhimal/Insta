@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/header";
+import Sidebar from "../components/sidebar";
 import Timeline from "../components/timeline";
-import { auth } from "../firebase/firebase";
 import "../styles/dashboard.scss";
 
 function Dashboard({ user }) {
@@ -10,10 +10,10 @@ function Dashboard({ user }) {
       <Header user={user} />
       <div className="dashboard__body">
         <div className="dashboard__timline">
-        <Timeline />
+        <Timeline/>
         </div>
         <div className="dashboard__sidebar">
-          <p>This is side bar</p>
+          <Sidebar/>
         </div>
       </div>
     </div>

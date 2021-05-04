@@ -1,0 +1,80 @@
+@import "./variables.scss";
+
+.sidebar {
+  .sidebar__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .sidebar__topLeft {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      img {
+        width: 62px;
+        border-radius: 50%;
+      }
+      .sidebar__username {
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 0.4px;
+      }
+      .sidebar__fullname {
+        color: $graySecondary;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.4px;
+      }
+    }
+    .sidebar__topRight {
+      button {
+        font-weight: 600;
+        font-size: 13px;
+        color: $bluePrimary;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.sidebar__suggestions {
+  .suggestionsForYou {
+    font-size: 14px;
+    font-weight: 600;
+    color: $graySecondary;
+    padding-bottom: 10px;
+  }
+}
+
+.sidebar__suggested {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  .sidebar__suggestedProfile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    img {
+      width: 40px;
+      border-radius: 50%;
+    }
+    p {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .suggestedForYou {
+        font-weight: 500;
+        font-size: 12px;  
+        color: $graySecondary;
+    }
+  }
+  .sidebar__follow {
+      button {
+        font-weight: 600;
+        font-size: 13px;
+        color: $bluePrimary;
+        cursor: pointer;
+      }
+  }
+}

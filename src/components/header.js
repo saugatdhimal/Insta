@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import Dashboard from "../pages/dashboard";
@@ -6,7 +6,6 @@ import { PROFILE } from "../routes";
 import "../styles/header.scss";
 
 function Header({user}) {
-console.log(user)
   return (
     <div className="header">
       <div className="header__container">
@@ -33,7 +32,7 @@ console.log(user)
             <Link to={PROFILE}>
             <img
               src=""
-              alt="Profile picture"
+              alt="Profile"
               onError={(e) => {
                 e.target.src = `/images/default.png`;
               }}
