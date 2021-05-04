@@ -1,6 +1,7 @@
 @import './variables.scss';
 
 .timeline {
+    margin-bottom: 100px;
     .timeline__top{
         height: 110px;
         border: 1px solid $grayPrimary;
@@ -10,6 +11,7 @@
         align-items: center;
         gap: 20px;
         padding: 0 20px;
+        margin-bottom: 20px;
         .timeline__profileSkeleton {
             display: flex;
             flex-direction: column;
@@ -29,5 +31,10 @@
                 font-size: 13px;
             }
         }
+    }
+    .timeline__post {
+        border: 1px solid $grayPrimary;
+        border-radius: 3px;
+        background-color: white;
     }
 }

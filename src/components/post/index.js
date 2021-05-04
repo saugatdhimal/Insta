@@ -1,12 +1,16 @@
 import React from 'react'
-import Header from './header'
+import PostHeader from './postHeader'
 import Image from './image'
+import Icons from './icons'
+import Comment from './comment'
 
 function Post() {
     return (
         <div className="post">
-            <Header />
+            <PostHeader />
             <Image />
+            <Icons />
+            <Comment />
         </div>
     )
 }
