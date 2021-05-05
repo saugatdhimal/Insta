@@ -6,7 +6,7 @@ import Dashboard from "../pages/dashboard";
 import "../styles/header.scss";
 
 function Header({user}) {
-  const { user: {username}} =  useContext(UserContext)
+  const { user: {username, imageUrl}} =  useContext(UserContext)
   return (
     <div className="header">
       <div className="header__container">
@@ -32,7 +32,7 @@ function Header({user}) {
             </button>
             <Link to={`/p/${username}`}>
             <img
-              src=""
+              src={imageUrl}
               alt="Profile"
               onError={(e) => {
                 e.target.src = `/images/default.png`;

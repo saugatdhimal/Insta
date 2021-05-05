@@ -34,6 +34,7 @@ function SignUp() {
               emailAddress: emailAddress.toLowerCase(),
               following: [],
               followers: [],
+              imageUrl: '',
               dateCreated: Date.now(),
             })
             

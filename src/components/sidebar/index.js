@@ -7,7 +7,7 @@ import Suggestions from "./suggestions";
 
 function Sidebar() {
   const [profiles, setProfiles] = useState()
-  const {user: {userId, following, username, fullName}} = useContext(UserContext)
+  const {user: {userId, following, username, fullName, imageUrl}} = useContext(UserContext)
   
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function Sidebar() {
   
   return (
     <div className="sidebar">
-      <User username={username} fullName={fullName}/>
+      <User username={username} fullName={fullName} imageUrl={imageUrl} />
       <Suggestions profiles={profiles} userId={userId}/>
     </div>
   );

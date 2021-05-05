@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function User({ username, fullName }) {
+function User({ username, fullName, imageUrl }) {
   return (
     <div className="sidebar__top">
       <div className="sidebar__topLeft">
         <Link to={`/p/${username}`}>
           <img
-            src=""
+            src={imageUrl}
             alt="Profile"
             onError={(e) => {
               e.target.src = `/images/default.png`;
