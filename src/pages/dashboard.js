@@ -4,10 +4,10 @@ import Sidebar from "../components/sidebar";
 import Timeline from "../components/timeline";
 import "../styles/dashboard.scss";
 
-function Dashboard({ user }) {
+function Dashboard({user}) {
   return (
     <div className="dashboard">
-      <Header user={user} />
+      <Header user={user}/>
       <div className="dashboard__body">
         <div className="dashboard__timline">
         <Timeline/>

@@ -6,11 +6,13 @@ import {
   Redirect,
 } from "react-router-dom";
 import { auth } from "./firebase/firebase";
-import { DASHBOARD, LOGIN, SIGN_UP } from "./routes";
+import { DASHBOARD, LOGIN, NOT_FOUND, PROFILE, SIGN_UP } from "./routes";
 import { lazy, Suspense } from "react";
 import FallbackLoading from "./components/fallbackLoading";
 import useUser from "./hooks/useUser";
 import UserContext from "./context/UserContext";
+import Profile from "./pages/profile";
+import NotFound from "./pages/notFound";
 
 const Login = lazy(() => import("./pages/login"));
 const SignUp = lazy(() => import("./pages/signUp"));
@@ -18,7 +20,7 @@ const Dashboard = lazy(() => import("./pages/dashboard"));
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
-  const {activeUser, setActiveUser} = useUser(user?.userId)
+  const {user: activeUser, setActiveUser} = useUser(user?.userId)
   
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
@@ -35,7 +37,7 @@ function App() {
     });
   }, []);
   return (
-    <UserContext.Provider value={{activeUser, setActiveUser}}>
+    <UserContext.Provider value={{user: activeUser, setActiveUser}}>
     <Router>
       <Suspense fallback={<FallbackLoading />}>
         <Switch>
@@ -44,6 +46,12 @@ function App() {
           </Route>
           <Route exact path={SIGN_UP}>
             {!user ? <SignUp /> : <Redirect to={DASHBOARD} />}
+          </Route>
+          <Route exact path={PROFILE}>
+             <Profile user={user}/> 
+          </Route>
+          <Route exact path={NOT_FOUND}>
+             <NotFound /> 
           </Route>
           <Route exact path={DASHBOARD}>
             {user ? <Dashboard user={user} /> : <Redirect to={LOGIN} />}

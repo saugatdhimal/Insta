@@ -1,6 +1,10 @@
 @import "./variables.scss";
 
 .sidebar {
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
   .sidebar__top {
     display: flex;
     align-items: center;

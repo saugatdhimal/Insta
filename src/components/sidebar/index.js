@@ -1,52 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
 import { getSuggestedProfiles } from "../../firebase/service";
 import "../../styles/sidebar.scss";
-import Skeleton from 'react-loading-skeleton'
-import SuggestedProfiles from "./suggestedProfiles";
 import UserContext from "../../context/UserContext";
+import User from "./user";
+import Suggestions from "./suggestions";
 
 function Sidebar() {
   const [profiles, setProfiles] = useState()
-  const {activeUser} = useContext(UserContext)
+  const {user: {userId, following, username, fullName}} = useContext(UserContext)
   
 
   useEffect(() => {
     async function suggestedProfiles() {
-      const Profiles = await getSuggestedProfiles(activeUser.userId, activeUser.following);
+      const Profiles = await getSuggestedProfiles(userId, following);
       setProfiles(Profiles);
     }
-    if(activeUser.userId && activeUser.following){
+    if(userId && following){
       suggestedProfiles();
     }
-  }, [activeUser.userId, activeUser.following]);
+  }, [userId, following]);
 
   
   return (
     <div className="sidebar">
-      <div className="sidebar__top">
-        <div className="sidebar__topLeft">
-          <img
-            src=""
-            alt="Profile"
-            onError={(e) => {
-              e.target.src = `/images/default.png`;
-            }}
-          />
-          <div>
-            <p className="sidebar__username">{activeUser?.username}</p>
-            <p className="sidebar__fullname">{activeUser?.fullName}</p>
-          </div>
-        </div>
-        <div className="sidebar__topRight">
-          <button>Switch</button>
-        </div>
-      </div>
-      <div className="sidebar__suggestions">
-        <p className="suggestionsForYou">Suggestions For You</p>
-        {!profiles ? <Skeleton count={4} height={50} /> : profiles.map((item) => (
-          <SuggestedProfiles userId={activeUser.userId} profileUserId={item.userId} username={item.username} key={item.userId}/>
-        ))}
-      </div>
+      <User username={username} fullName={fullName}/>
+      <Suggestions profiles={profiles} userId={userId}/>
     </div>
   );
 }

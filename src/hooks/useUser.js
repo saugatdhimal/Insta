@@ -14,5 +14,5 @@ export default function useUser(userId) {
         }
     }, [userId])
 
-    return {activeUser, setActiveUser}
+    return {user: activeUser, setActiveUser}
 }

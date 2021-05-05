@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../context/UserContext";
 import { auth } from "../firebase/firebase";
 import Dashboard from "../pages/dashboard";
-import { PROFILE } from "../routes";
 import "../styles/header.scss";
 
 function Header({user}) {
+  const { user: {username}} =  useContext(UserContext)
   return (
     <div className="header">
       <div className="header__container">
         <div className="header__logo">
-          <Link to="/">
+          <Link to='/'>
             <img src="/images/logo.png" alt="instagram logo" />
           </Link>
         </div>
@@ -29,7 +30,7 @@ function Header({user}) {
             <button onClick={() => auth.signOut()}>
               Sign Out
             </button>
-            <Link to={PROFILE}>
+            <Link to={`/p/${username}`}>
             <img
               src=""
               alt="Profile"

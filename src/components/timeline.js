@@ -7,21 +7,21 @@ import Post from "./post";
 
 function Timeline() {
   const [followedProfiles, setFollowedProfiles] = useState();
-  const { activeUser } = useContext(UserContext);
+  const { user: {userId, following} } = useContext(UserContext);
 
   useEffect(() => {
     async function followedProfiles() {
       const FollowedProfiles = await getFollowedProfiles(
-        activeUser.userId,
-        activeUser.following
+        userId,
+        following
       );
       setFollowedProfiles(FollowedProfiles);
     }
 
-    if (activeUser.userId && activeUser.following) {
+    if (userId && following) {
       followedProfiles();
     }
-  }, [activeUser.userId, activeUser.following]);
+  }, [userId, following]);
   return (
     <div className="timeline">
       <div className="timeline__top">

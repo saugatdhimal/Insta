@@ -7,7 +7,6 @@ function Icons() {
       <div className="icons__all">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
         //   fill={`${toggleLiked ? "red" : "none"}`}
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -19,7 +18,6 @@ function Icons() {
         </svg>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -1,0 +1,32 @@
+@import './variables.scss';
+
+.profile {
+    .profile__body {
+        max-width: $screenWidth;
+        margin: 0 auto;
+        margin-top: 20px;
+        .profile__user {
+            display: flex;
+            .profile__img {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 10px 40px;
+                img {
+                    width: 150px;
+                    border-radius: 50%;
+                }
+                label {
+                    color: $blueSecondary;
+                    border: 1px solid $bluePrimary;
+                    border-radius: 3px;
+                    padding: 5px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
