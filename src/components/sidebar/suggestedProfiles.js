@@ -7,7 +7,7 @@ import {
   updateLoggedInUserFollowing,
 } from "../../firebase/service";
 
-function SuggestedProfiles({ userId, profileUserId, username }) {
+function SuggestedProfiles({ userId, profileUserId, username, imageUrl }) {
   const { setActiveUser } = useContext(UserContext);
   async function handleFollowUser() {
     await updateLoggedInUserFollowing(userId, profileUserId, false);
@@ -20,7 +20,7 @@ function SuggestedProfiles({ userId, profileUserId, username }) {
       <div className="sidebar__suggestedProfile">
         <Link to={`/p/${username}`}>
           <img
-            src=""
+            src={imageUrl}
             alt="Profile"
             onError={(e) => {
               e.target.src = `/images/default.png`;

@@ -28,7 +28,7 @@ export async function getUserByUsername(username) {
 }
 
 export async function getSuggestedProfiles(userId, following) {
-  const result = await db.collection("users").limit(10).get();
+  const result = await db.collection("users").limit(5).get();
 
   return result.docs
     .map((user) => user.data())

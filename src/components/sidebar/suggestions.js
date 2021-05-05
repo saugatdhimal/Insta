@@ -14,6 +14,7 @@ function Suggestions({profiles, userId}) {
             userId={userId}
             profileUserId={item.userId}
             username={item.username}
+            imageUrl={item.imageUrl}
             key={item.userId}
           />
         ))

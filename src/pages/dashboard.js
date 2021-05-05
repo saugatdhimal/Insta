@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import Timeline from "../components/timeline";
 import "../styles/dashboard.scss";
 
 function Dashboard({user}) {
+  
   return (
     <div className="dashboard">
       <Header user={user}/>

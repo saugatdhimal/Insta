@@ -10,6 +10,7 @@ function Timeline() {
   const { user: {userId, following} } = useContext(UserContext);
 
   useEffect(() => {
+    document.title = "Instagram"
     async function followedProfiles() {
       const FollowedProfiles = await getFollowedProfiles(
         userId,
@@ -31,7 +32,7 @@ function Timeline() {
           followedProfiles.map((profile) => (
             <div className="timeline__profileImg" key={profile.userId}>
               <img
-                src=""
+                src={profile.imageUrl}
                 alt="Profile"
                 onError={(e) => {
                   e.target.src = `/images/default.png`;
