@@ -8,7 +8,7 @@ import Post from "./post";
 
 function Timeline() {
   const [followedProfiles, setFollowedProfiles] = useState();
-  const { user: {userId, following} } = useContext(UserContext);
+  const { user: {userId, following, username} } = useContext(UserContext);
 
   useEffect(() => {
     document.title = "Instagram"
@@ -46,7 +46,7 @@ function Timeline() {
           ))}
       </div>
       <div className="timeline__post">
-        <Post />
+        <Post username={username}/>
       </div>
     </div>
   );

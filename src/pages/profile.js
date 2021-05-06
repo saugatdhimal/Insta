@@ -147,7 +147,8 @@ function Profile({ user }) {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           db.collection("posts").add({
             caption: caption,
-            imageUrl: downloadURL,
+            postImageUrl: downloadURL,
+            profileImageUrl: profileUser.imageUrl,
             username: profileUser.username,
             userId: profileUser.userId,
             dateCreated: Date.now(),
@@ -156,7 +157,8 @@ function Profile({ user }) {
           });
           refreshUser();
           setPostImage(null);
-          setCreateUser(false)
+          setCreateUser(false);
+          setCaption('')
         });
       }
     );
@@ -247,7 +249,7 @@ function Profile({ user }) {
                 <label htmlFor="createUser">{postImage ? postImage.name : 'Choose Image'}</label>
                 <input type="file" id="createUser" onChange={handleChange2} hidden />
                 <input type="text" placeholder="Enter a caption..." value={caption} onChange={e => setCaption(e.target.value)}/>
-                <button onClick={handleUpload2}>Upload</button>
+                <button onClick={handleUpload2} disabled={!postImage}>Upload</button>
               </div>
             ): ''}
           </div>
@@ -306,7 +308,7 @@ function Profile({ user }) {
             </p>
           </div>
           <div className="profile__postGrid">
-            {userPosts && userPosts.map((post) => (<img src={post.imageUrl} alt='' key={post.dateCreated} />))}
+            {userPosts && userPosts.map((post) => (<img src={post.postImageUrl} alt='' key={post.dateCreated} />))}
             <img
               src="https://thehimalayantimes.com/uploads/imported_images/wp-content/uploads/2020/07/RAJESH-HAMAL-INSTAGRAM.jpg"
               alt=""

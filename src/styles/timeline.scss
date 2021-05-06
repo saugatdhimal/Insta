@@ -38,8 +38,15 @@
         }
     }
     .timeline__post {
-        border: 1px solid $grayPrimary;
-        border-radius: 3px;
-        background-color: white;
+        .post {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            .post__cont {
+                border: 1px solid $grayPrimary;
+                border-radius: 3px;
+                background-color: white;
+            }
+        }
     }
 }

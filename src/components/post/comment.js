@@ -1,11 +1,11 @@
 import React from "react";
 import "../../styles/comment.scss";
 
-function Comment() {
+function Comment({username, caption}) {
   return (
     <div className="comment">
       <div className="comment__display">
-        <p><span>username</span> and caption</p>
+        <p><span>{username}</span> {caption}</p>
         <p className="gray">View more comments</p>
         <p><span>username </span>comments</p>
         <p><span>username </span>comments</p>
