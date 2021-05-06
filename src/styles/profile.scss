@@ -21,7 +21,7 @@
             .profile__info {
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
+                gap: 18px;
                 .profile__infoTop {
                     display: flex;
                     align-items: center;
@@ -40,7 +40,7 @@
                         cursor: pointer;
                     }
                     label {
-                        width: fit-content;
+                        overflow: hidden;
                         font-size: 14px;
                         display: flex;
                         justify-content: center;
@@ -68,6 +68,12 @@
                     font-size: 17px;
                     font-weight: 600;
                 }
+
+                .profile__cpButton {
+                    padding: 5px 0;
+                    cursor: pointer;
+                }
+                
             }
         }
 
@@ -112,4 +118,28 @@
             }
         }
     }
+}
+
+.profile__createPost{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 99;
+    input {
+        height: 30px;
+    }
+    label {
+        border: 1px solid $blueSecondary;
+        text-align: center;
+        padding: 2px 0 5px 0;
+        color: $blueSecondary;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    button {
+        padding: 5px 0;
+        cursor: pointer;
+    }
+    
 }

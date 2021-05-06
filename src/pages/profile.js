@@ -5,7 +5,13 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import UserContext from "../context/UserContext";
 import { db, storage } from "../firebase/firebase";
-import { getUserById, getUserByUsername, updateFollowedUserFollowers, updateLoggedInUserFollowing } from "../firebase/service";
+import {
+  getUserById,
+  getUserByUsername,
+  getUserPosts,
+  updateFollowedUserFollowers,
+  updateLoggedInUserFollowing,
+} from "../firebase/service";
 import { NOT_FOUND } from "../routes";
 import "../styles/profile.scss";
 
@@ -13,30 +19,63 @@ function Profile({ user }) {
   const { setActiveUser } = useContext(UserContext);
   const { username } = useParams();
   const [profileUser, setProfileUser] = useState("");
-  const [ followed, setFollowed] = useState(false)
+  const [followed, setFollowed] = useState(false);
+  const [createUser, setCreateUser] = useState(false);
+  const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
+  const [userPosts, setUserPosts] = useState('')
+  const [postImage, setPostImage] = useState(null);
   const [progress, setProgress] = useState(0);
   const history = useHistory();
 
-
   useEffect(() => {
+    let mount = true;
     async function checkUserExists() {
       const User = await getUserByUsername(username);
       if (User) {
-        setProfileUser(User);
-        if(User.followers.includes(user.userId)) {
-          setFollowed(true)
+        if (User.followers.includes(user.userId)) {
+          setFollowed(true);
         } else {
-          setFollowed(false)
+          setFollowed(false);
         }
+        setProfileUser(User);
         document.title = `@${username} - Instagram`;
       } else {
         history.push(NOT_FOUND);
       }
     }
 
-    checkUserExists();
-  }, [username, history, user.userId]); 
+    async function letsGetUserPosts() {
+      const userPostss = await getUserPosts(username);
+      if(userPostss){
+        setUserPosts(userPostss)
+      }
+    }
+
+    if(mount) {
+      checkUserExists();
+    letsGetUserPosts();
+    }
+
+    return () => {
+      mount = false
+      setUserPosts('')
+      setProfileUser('')
+      setFollowed(false)
+    };
+  }, [username, history, user.userId]);
+
+  const handleChange = (event) => {
+    if (event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
+
+  const handleChange2 = (event) => {
+    if (event.target.files[0]) {
+      setPostImage(event.target.files[0]);
+    }
+  };
 
   async function refreshUser() {
     const User = await getUserById(user.userId);
@@ -45,20 +84,22 @@ function Profile({ user }) {
   }
 
   async function handleToggle() {
-    await updateLoggedInUserFollowing(user.userId, profileUser.userId , followed);
-    await updateFollowedUserFollowers(user.userId, profileUser.userId , followed);
-    setFollowed(!followed)
+    await updateLoggedInUserFollowing(
+      user.userId,
+      profileUser.userId,
+      followed
+    );
+    await updateFollowedUserFollowers(
+      user.userId,
+      profileUser.userId,
+      followed
+    );
+    setFollowed(!followed);
     const loggedUser = await getUserById(user.userId);
     const profilePageUser = await getUserById(profileUser.userId);
     setActiveUser(loggedUser);
-    setProfileUser(profilePageUser)
+    setProfileUser(profilePageUser);
   }
-
-  const handleChange = (event) => {
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
-    }
-  };
 
   const handleUpload = () => {
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -82,6 +123,40 @@ function Profile({ user }) {
             imageUrl: downloadURL,
           });
           refreshUser();
+          setImage(null);
+        });
+      }
+    );
+  };
+
+  const handleUpload2 = () => {
+    const uploadTask = storage.ref(`postImages/${postImage.name}`).put(postImage);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log("Upload is " + progress + "% done");
+      },
+      (error) => {
+        console.log(error);
+        alert(error.message);
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          db.collection("posts").add({
+            caption: caption,
+            imageUrl: downloadURL,
+            username: profileUser.username,
+            userId: profileUser.userId,
+            dateCreated: Date.now(),
+            comments: [],
+            likes: []
+          });
+          refreshUser();
+          setPostImage(null);
+          setCreateUser(false)
         });
       }
     );
@@ -119,24 +194,15 @@ function Profile({ user }) {
               </p>
               {user.userId === profileUser.userId ? (
                 <>
-                  <label htmlFor="file">
-                    {!image ? (
-                      "Change Image"
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
+                  <label htmlFor="image">
+                    {image ? image.name : "Change Image"}
                   </label>
-                  <input id="file" type="file" onChange={handleChange} hidden />
+                  <input
+                    id="image"
+                    type="file"
+                    onChange={handleChange}
+                    hidden
+                  />
                   {image && (
                     <button onClick={handleUpload} disabled={!image}>
                       Upload
@@ -144,7 +210,9 @@ function Profile({ user }) {
                   )}
                 </>
               ) : (
-                <button onClick={handleToggle}>{!followed ? 'Follow' : 'Unfollow'}</button>
+                <button onClick={handleToggle}>
+                  {!followed ? "Follow" : "Unfollow"}
+                </button>
               )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -160,13 +228,28 @@ function Profile({ user }) {
                 <span>500</span> posts
               </p>
               <p>
-                <span>500</span> followers
+                <span>{profileUser.followers.length}</span> followers
               </p>
               <p>
-                <span>500</span> following
+                <span>{profileUser.following.length}</span> following
               </p>
             </div>
             <p className="profile__fullName">{profileUser.fullName}</p>
+            {user.userId === profileUser.userId && !createUser ? (
+              <button
+                className="profile__cpButton"
+                onClick={() => setCreateUser(true)}
+              >
+                Create Post
+              </button>
+            ) :  createUser ? (
+              <div className="profile__createPost">
+                <label htmlFor="createUser">{postImage ? postImage.name : 'Choose Image'}</label>
+                <input type="file" id="createUser" onChange={handleChange2} hidden />
+                <input type="text" placeholder="Enter a caption..." value={caption} onChange={e => setCaption(e.target.value)}/>
+                <button onClick={handleUpload2}>Upload</button>
+              </div>
+            ): ''}
           </div>
         </div>
         <div className="profile__post">
@@ -223,6 +306,7 @@ function Profile({ user }) {
             </p>
           </div>
           <div className="profile__postGrid">
+            {userPosts && userPosts.map((post) => (<img src={post.imageUrl} alt='' key={post.dateCreated} />))}
             <img
               src="https://thehimalayantimes.com/uploads/imported_images/wp-content/uploads/2020/07/RAJESH-HAMAL-INSTAGRAM.jpg"
               alt=""
@@ -240,7 +324,6 @@ function Profile({ user }) {
       </div>
       <Footer />
     </div>
-
   ) : (
     <FallbackLoading />
   );

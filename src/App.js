@@ -48,7 +48,7 @@ function App() {
             {!user ? <SignUp /> : <Redirect to={DASHBOARD} />}
           </Route>
           <Route exact path={PROFILE}>
-             <Profile user={user}/> 
+             {user ? <Profile user={user}/> : <Redirect to={LOGIN} />}
           </Route>
           <Route exact path={NOT_FOUND}>
              <NotFound /> 

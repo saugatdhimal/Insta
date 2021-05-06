@@ -28,7 +28,7 @@ export async function getUserByUsername(username) {
 }
 
 export async function getSuggestedProfiles(userId, following) {
-  const result = await db.collection("users").limit(5).get();
+  const result = await db.collection("users").limit(10).get();
 
   return result.docs
     .map((user) => user.data())
@@ -39,7 +39,7 @@ export async function getSuggestedProfiles(userId, following) {
 }
 
 export async function getFollowedProfiles(userId, following) {
-  const result = await db.collection("users").limit(5).get();
+  const result = await db.collection("users").limit(10).get();
   
   return result.docs
     .map((user) => user.data())
@@ -77,4 +77,13 @@ export async function updateFollowedUserFollowers(
         ? FieldValue.arrayRemove(loggedInUserId)
         : FieldValue.arrayUnion(loggedInUserId),
     });
+}
+
+export async function getUserPosts(username) {
+  const result = await db
+    .collection("posts")
+    .where("username", "==", username)
+    .get();
+  const userPosts = result.docs.map((item) => item.data());
+  return userPosts;
 }
