@@ -6,7 +6,6 @@
         margin: 0 auto;
         .profile__user {
             display: flex;
-            background-color: yellow;
             margin: 30px 0 40px 0;
             .profile__img {
                 padding: 0 100px 0 70px;
@@ -77,13 +76,38 @@
             .profile__postTop {
                 display: flex;
                 justify-content: center;
-                gap: 30px;
-                background-color: yellow;
+                gap: 70px;
+                padding: 20px 0;
                 p {
                     text-transform: uppercase;
                     font-size: 14px;
                     font-weight: 500;
                     color: $graySecondary;
+                    position: relative;
+                    display: flex;
+                    gap: 5px;
+                    cursor: pointer;
+                    svg {
+                        width: 15px;
+                    }
+                    span {
+                        position: absolute;
+                        width: 15px;
+                        overflow: hidden;
+                        transform: scaleY(-1);
+                        right: 36px;
+                        bottom:2px;
+                    }
+                }
+            }
+
+            .profile__postGrid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: auto;
+                gap: 30px;
+                img {
+                    width: 100%;       
                 }
             }
         }

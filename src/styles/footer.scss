@@ -1,0 +1,17 @@
+@import './variables.scss';
+
+.footer {
+    margin: 20px 0 40px 0;
+    .footer__top, .footer__bottom {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding-bottom: 20px;
+        p {
+            font-size: 13px;
+            color: $graySecondary;
+            gap: 10px;
+            text-transform: capitalize;
+        }
+    }
+}

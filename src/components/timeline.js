@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { getFollowedProfiles } from "../firebase/service";
 import "../styles/timeline.scss";
@@ -27,10 +28,11 @@ function Timeline() {
     <div className="timeline">
       <div className="timeline__top">
         {!followedProfiles ? <div className="timeline__profileSkeleton">
-          <Skeleton circle count={2} height={60}  width={60} style={{marginRight: '20px'}}/> 
-          <Skeleton circle  count={2} width={60} style={{marginRight: '20px'}}/> </div>: 
+          <Skeleton circle count={7} height={60}  width={60} style={{marginRight: '21px'}}/> 
+          <Skeleton circle  count={7} width={60} style={{marginRight: '21px'}}/> </div>: 
           followedProfiles.map((profile) => (
             <div className="timeline__profileImg" key={profile.userId}>
+              <Link to={`/p/${profile.username}`}>
               <img
                 src={profile.imageUrl}
                 alt="Profile"
@@ -39,6 +41,7 @@ function Timeline() {
                 }}
               />
               <p>{profile.username}</p>
+              </Link>
             </div>
           ))}
       </div>
