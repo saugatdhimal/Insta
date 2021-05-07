@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { getfollowingUsersPosts, getUserPosts } from "../../firebase/service";
+import React, { useEffect, useState } from "react";
+import { getfollowingUsersPosts } from "../../firebase/service";
 import PostHeader from "./postHeader";
 import Image from "./image";
 import Icons from "./icons";

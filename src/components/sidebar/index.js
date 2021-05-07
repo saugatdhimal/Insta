@@ -12,7 +12,7 @@ function Sidebar() {
 
   useEffect(() => {
     async function suggestedProfiles() {
-      const Profiles = await getSuggestedProfiles(following);
+      const Profiles = await getSuggestedProfiles(userId,following);
       setProfiles(Profiles);
     }
     if(following){

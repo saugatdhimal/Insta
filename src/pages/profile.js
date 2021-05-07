@@ -83,6 +83,13 @@ function Profile({ user }) {
     setProfileUser(User);
   }
 
+  async function refreshUserPosts() {
+    const post = await getUserPosts(username)
+    if(post) {
+      setUserPosts(post)
+    }
+  }
+
   async function handleToggle() {
     await updateLoggedInUserFollowing(
       user.userId,
@@ -155,7 +162,7 @@ function Profile({ user }) {
             comments: [],
             likes: []
           });
-          refreshUser();
+          refreshUserPosts();
           setPostImage(null);
           setCreateUser(false);
           setCaption('')
@@ -309,18 +316,6 @@ function Profile({ user }) {
           </div>
           <div className="profile__postGrid">
             {userPosts && userPosts.map((post) => (<img src={post.postImageUrl} alt='' key={post.dateCreated} />))}
-            <img
-              src="https://thehimalayantimes.com/uploads/imported_images/wp-content/uploads/2020/07/RAJESH-HAMAL-INSTAGRAM.jpg"
-              alt=""
-            />
-            <img
-              src="https://1.bp.blogspot.com/-f08xKugN8qI/X25JgqvshJI/AAAAAAAASn0/cR9fRGjpngI4zRPKkFPptAN6R59T4z0EgCLcBGAsYHQ/s1080/Nepali%2BSuper%2BStar.jpg"
-              alt=""
-            />
-            <img
-              src="https://1.bp.blogspot.com/-CDg7dNQveTE/X25Ji8YsNDI/AAAAAAAASoM/hCTg9056bJY3WiWHbd5UsdWgbTGyGKAewCLcBGAsYHQ/s1080/Rajesh%2BHamal%2B7.jpg"
-              alt=""
-            />
           </div>
         </div>
       </div>

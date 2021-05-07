@@ -27,14 +27,14 @@ export async function getUserByUsername(username) {
   return user;
 }
 
-export async function getSuggestedProfiles(following) {
+export async function getSuggestedProfiles(userId, following) {
   const result = await db
     .collection("users")
     .where("userId", "not-in", following)
-    .limit(5)
+    .limit(6)
     .get();
 
-  return result.docs.map((item) => item.data());
+  return result.docs.map((item) => item.data()).filter((post) => post.userId !== userId)
 }
 
 export async function getFollowedProfiles(following) {
@@ -80,6 +80,7 @@ export async function getUserPosts(username) {
   const result = await db
     .collection("posts")
     .where("username", "==", username)
+    .orderBy("dateCreated", 'desc')
     .get();
   const userPosts = result.docs.map((item) => item.data());
   return userPosts;
@@ -89,6 +90,8 @@ export async function getfollowingUsersPosts(following) {
   const result = await db
     .collection("posts")
     .where("userId", "in", following)
+    .limit(6)
+    .orderBy("dateCreated", 'desc')
     .get();
 
   const followingUsersPosts = result.docs.map((item) => item.data());

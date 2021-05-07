@@ -9,7 +9,7 @@ import Post from "./post";
 function Timeline() {
   const [followedProfiles, setFollowedProfiles] = useState();
   const {
-    user: {following},
+    user: { following },
   } = useContext(UserContext);
 
   useEffect(() => {
