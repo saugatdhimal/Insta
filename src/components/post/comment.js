@@ -1,15 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { db, FieldValue } from "../../firebase/firebase";
 import "../../styles/comment.scss";
 
-function Comment({username, caption}) {
+function Comment({
+  username,
+  postUsername,
+  caption,
+  allComments,
+  docId,
+}) {
+  const [comments, setComments] = useState(allComments);
+  const [comment, setComment] = useState("");
+  const [commentsSlice, setCommentsSlice] = useState(3);
+
+  const viewMoreComments = () => {
+    setCommentsSlice(commentsSlice + 3);
+  };
+
+  const handleSubmitComment = (event) => {
+    event.preventDefault();
+    setComments([{ username, comment }, ...comments]);
+    setComment("");
+    return db
+      .collection("posts")
+      .doc(docId)
+      .update({
+        comments: FieldValue.arrayUnion({ username, comment }),
+      });
+  };
+
+  useState(() => {
+    allComments.reverse()
+  }, [allComments])
+
   return (
     <div className="comment">
       <div className="comment__display">
-        <p><span>{username}</span> {caption}</p>
-        <p className="gray">View more comments</p>
-        <p><span>username </span>comments</p>
-        <p><span>username </span>comments</p>
-        <p><span>username </span>comments</p>
+        <p>
+          <span>{postUsername}</span> {caption}
+        </p>
+        {comments.length >= 3 && commentsSlice < comments.length && (
+          <p onClick={viewMoreComments} className="gray">
+            View more comments
+          </p>
+        )}
+        {comments.slice(0, commentsSlice).map((item) => (
+          <p key={`${item.comment}-${item.username}`} className="mb-1">
+            <Link to={`/p/${item.username}`}>
+              <span>{item.username} </span>
+            </Link>
+            {item.comment}
+          </p>
+        ))}
       </div>
       <div className="comment__input">
         <svg
@@ -25,8 +68,19 @@ function Comment({username, caption}) {
             d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <input type="text" placeholder="Add a comment..."/>
-        <button>Post</button>
+        <input
+          type="text"
+          placeholder="Add a comment..."
+          value={comment}
+          onChange={({ target }) => setComment(target.value)}
+        />
+        <button
+          onClick={handleSubmitComment}
+          type="button"
+          disabled={comment.length < 1}
+        >
+          Post
+        </button>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import Image from "./image";
 import Icons from "./icons";
 import Comment from "./comment";
 
-function Post({ following }) {
+function Post({ following, username }) {
   const [followingUsersPosts, setFollowingUsersPosts] = useState("");
   useEffect(() => {
     let mount = true;
@@ -32,7 +32,7 @@ function Post({ following }) {
             <PostHeader username={post.username} imageSrc={post.profileImageUrl}/>
             <Image imageSrc={post.postImageUrl} />
             <Icons />
-            <Comment username={post.username} caption={post.caption}/>
+            <Comment postUsername={post.username} caption={post.caption} allComments={post.comments} username={username} docId={post.docId}/>
           </div>
         ))}
     </div>

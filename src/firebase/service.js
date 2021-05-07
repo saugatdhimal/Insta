@@ -34,7 +34,9 @@ export async function getSuggestedProfiles(userId, following) {
     .limit(6)
     .get();
 
-  return result.docs.map((item) => item.data()).filter((post) => post.userId !== userId)
+  return result.docs
+    .map((item) => item.data())
+    .filter((post) => post.userId !== userId);
 }
 
 export async function getFollowedProfiles(following) {
@@ -80,7 +82,7 @@ export async function getUserPosts(username) {
   const result = await db
     .collection("posts")
     .where("username", "==", username)
-    .orderBy("dateCreated", 'desc')
+    .orderBy("dateCreated", "desc")
     .get();
   const userPosts = result.docs.map((item) => item.data());
   return userPosts;
@@ -91,9 +93,19 @@ export async function getfollowingUsersPosts(following) {
     .collection("posts")
     .where("userId", "in", following)
     .limit(6)
-    .orderBy("dateCreated", 'desc')
+    .orderBy("dateCreated", "desc")
     .get();
 
-  const followingUsersPosts = result.docs.map((item) => item.data());
+  const followingUsersPosts = result.docs.map((item) => ({...item.data(), docId: item.id}));
+  console.log(followingUsersPosts)
   return followingUsersPosts;
+}
+
+export async function addComment(dateCreated, username, comment) {
+  return await db
+    .collection("posts")
+    .where("dateCreated", "==", dateCreated)
+    .update({
+      comments: FieldValue.arrayUnion({ username, comment }),
+    });
 }

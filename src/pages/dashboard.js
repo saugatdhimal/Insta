@@ -3,7 +3,7 @@ import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import Timeline from "../components/timeline";
 import "../styles/dashboard.scss";
-
+import Footer from '../components/footer'
 function Dashboard({user}) {
   
   return (
@@ -17,6 +17,7 @@ function Dashboard({user}) {
           <Sidebar/>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

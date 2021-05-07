@@ -18,7 +18,7 @@ function Sidebar() {
     if(following){
       suggestedProfiles();
     }
-  }, [following]);
+  }, [userId,following]);
 
   
   return (

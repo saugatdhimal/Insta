@@ -5,6 +5,10 @@
         padding: 0 15px;
         margin-bottom: 10px;
         font-size: 14px;
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
         p{
             margin-bottom: 4px;
         }
@@ -14,6 +18,7 @@
         .gray {
             color: $graySecondary;
             font-weight: 600;
+            cursor: pointer;
         }
     }
     .comment__input {
@@ -36,6 +41,7 @@
             font-weight: bold;
             color: $bluePrimary;
             background-color: white;
+            cursor: pointer;
         }
     }
 }
