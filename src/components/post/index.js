@@ -1,34 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getUserPosts } from "../../firebase/service";
+import { getfollowingUsersPosts, getUserPosts } from "../../firebase/service";
 import PostHeader from "./postHeader";
 import Image from "./image";
 import Icons from "./icons";
 import Comment from "./comment";
 
-function Post({ username }) {
-  const [userPosts, setUserposts] = useState("");
+function Post({ following }) {
+  const [followingUsersPosts, setFollowingUsersPosts] = useState("");
   useEffect(() => {
     let mount = true;
-    async function letsGetUserPosts() {
-      if (username) {
-        const userPostss = await getUserPosts(username);
-        setUserposts(userPostss);
+    async function letsGetFollowingUsersPosts() {
+      if (following) {
+        const posts = await getfollowingUsersPosts(following);
+        setFollowingUsersPosts(posts);
       }
     }
     if (mount) {
-      letsGetUserPosts();
+      letsGetFollowingUsersPosts();
     }
 
     return () => {
       mount = false;
-      setUserposts("");
+      setFollowingUsersPosts("");
     };
-  }, [username]);
+  }, [following]);
   return (
     <div className="post">
-      {userPosts &&
-        userPosts.map((post) => (
-          <div className="post__cont">
+      {followingUsersPosts &&
+        followingUsersPosts.map((post) => (
+          <div className="post__cont" key={post.dateCreated}>
             <PostHeader username={post.username} imageSrc={post.profileImageUrl}/>
             <Image imageSrc={post.postImageUrl} />
             <Icons />

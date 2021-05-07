@@ -27,26 +27,23 @@ export async function getUserByUsername(username) {
   return user;
 }
 
-export async function getSuggestedProfiles(userId, following) {
-  const result = await db.collection("users").limit(10).get();
+export async function getSuggestedProfiles(following) {
+  const result = await db
+    .collection("users")
+    .where("userId", "not-in", following)
+    .limit(5)
+    .get();
 
-  return result.docs
-    .map((user) => user.data())
-    .filter(
-      (profile) =>
-        profile.userId !== userId && !following.includes(profile.userId)
-    );
+  return result.docs.map((item) => item.data());
 }
 
-export async function getFollowedProfiles(userId, following) {
-  const result = await db.collection("users").limit(10).get();
-  
-  return result.docs
-    .map((user) => user.data())
-    .filter(
-      (profile) =>
-        profile.userId !== userId && following.includes(profile.userId)
-    );
+export async function getFollowedProfiles(following) {
+  const result = await db
+    .collection("users")
+    .where("userId", "in", following)
+    .get();
+
+  return result.docs.map((item) => item.data());
 }
 
 export async function updateLoggedInUserFollowing(
@@ -86,4 +83,14 @@ export async function getUserPosts(username) {
     .get();
   const userPosts = result.docs.map((item) => item.data());
   return userPosts;
+}
+
+export async function getfollowingUsersPosts(following) {
+  const result = await db
+    .collection("posts")
+    .where("userId", "in", following)
+    .get();
+
+  const followingUsersPosts = result.docs.map((item) => item.data());
+  return followingUsersPosts;
 }

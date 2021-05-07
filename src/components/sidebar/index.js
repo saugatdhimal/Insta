@@ -12,13 +12,13 @@ function Sidebar() {
 
   useEffect(() => {
     async function suggestedProfiles() {
-      const Profiles = await getSuggestedProfiles(userId, following);
+      const Profiles = await getSuggestedProfiles(following);
       setProfiles(Profiles);
     }
-    if(userId && following){
+    if(following){
       suggestedProfiles();
     }
-  }, [userId, following]);
+  }, [following]);
 
   
   return (
