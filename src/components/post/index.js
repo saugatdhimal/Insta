@@ -31,7 +31,7 @@ function Post({ following, username }) {
           <div className="post__cont" key={post.dateCreated}>
             <PostHeader username={post.username} imageSrc={post.profileImageUrl}/>
             <Image imageSrc={post.postImageUrl} />
-            <Icons />
+            <Icons username={username} docId={post.docId} likes={post.likes}/>
             <Comment postUsername={post.username} caption={post.caption} allComments={post.comments} username={username} docId={post.docId}/>
           </div>
         ))}
