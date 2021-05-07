@@ -18,11 +18,11 @@ function Comment({
     setCommentsSlice(commentsSlice + 3);
   };
 
-  const handleSubmitComment = (event) => {
+  const handleSubmitComment = async (event) => {
     event.preventDefault();
     setComments([{ username, comment }, ...comments]);
     setComment("");
-    return db
+    await db
       .collection("posts")
       .doc(docId)
       .update({

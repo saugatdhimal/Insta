@@ -3,7 +3,7 @@ import { db, FieldValue } from "../../firebase/firebase";
 import "../../styles/icons.scss";
 
 function Icons({ username, docId, likes }) {
-  const [Liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(likes.length);
   useEffect(() => {
     if (likes.includes(username)) {
@@ -13,17 +13,18 @@ function Icons({ username, docId, likes }) {
     }
   }, []);
 
-  const handleLike = async () => {
+  const handleLike = async (e) => {
+    e.preventDefault()
+    setLiked((liked) => !liked);
+    setLikesCount((likesCount) => (liked ? likesCount - 1 : likesCount + 1));
     await db
       .collection("posts")
       .doc(docId)
       .update({
-        likes: Liked
+        likes: liked
           ? FieldValue.arrayRemove(username)
           : FieldValue.arrayUnion(username),
       });
-    setLiked((liked) => !liked);
-    setLikesCount((likesCount, liked) => (liked ? likesCount.length - 1 : likesCount.length + 1));
   };
 
   return (
@@ -31,7 +32,8 @@ function Icons({ username, docId, likes }) {
       <div className="icons__all">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill={`${Liked ? "red" : "none"}`}
+          fill={`${liked ? "red" : "none"}`}
+          style={{color: `${liked ? 'red' : 'black'}`}}
           viewBox="0 0 24 24"
           stroke="currentColor"
           cursor="pointer"
@@ -50,7 +52,7 @@ function Icons({ username, docId, likes }) {
         </svg>
       </div>
       <div>
-        <p>500 likes</p>
+        <p>{likesCount === 1 ? `${likesCount} like` : `${likesCount} likes`}</p>
       </div>
     </div>
   );
