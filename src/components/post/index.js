@@ -9,33 +9,44 @@ import Skeleton from "react-loading-skeleton";
 function Post({ following, username }) {
   const [followingUsersPosts, setFollowingUsersPosts] = useState("");
   useEffect(() => {
-    let mount = true;
+  
     async function letsGetFollowingUsersPosts() {
-      if (following) {
+      if (following && following.length) {
         const posts = await getfollowingUsersPosts(following);
         setFollowingUsersPosts(posts);
       }
     }
-    if (mount) {
-      letsGetFollowingUsersPosts();
-    }
 
-    return () => {
-      mount = false;
-      setFollowingUsersPosts("");
-    };
+    letsGetFollowingUsersPosts();
+
   }, [following]);
   return (
     <div className="post">
-      {followingUsersPosts ?
+      {followingUsersPosts ? (
         followingUsersPosts.map((post) => (
           <div className="post__cont" key={post.dateCreated}>
-            <PostHeader username={post.username} imageSrc={post.profileImageUrl}/>
+            <PostHeader
+              username={post.username}
+              imageSrc={post.profileImageUrl}
+            />
             <Image imageSrc={post.postImageUrl} />
-            <Icons username={username} docId={post.docId} likes={post.likes}/>
-            <Comment postUsername={post.username} caption={post.caption} allComments={post.comments} username={username} docId={post.docId}/>
+            <Icons username={username} docId={post.docId} likes={post.likes} />
+            <Comment
+              postUsername={post.username}
+              caption={post.caption}
+              allComments={post.comments}
+              username={username}
+              docId={post.docId}
+            />
           </div>
-        )) : <Skeleton count={1} height={700} style={{border: '1px solid #dbdbdb'}}/>}
+        ))
+      ) : (
+        <Skeleton
+          count={1}
+          height={700}
+          style={{ border: "1px solid #dbdbdb" }}
+        />
+      )}
     </div>
   );
 }

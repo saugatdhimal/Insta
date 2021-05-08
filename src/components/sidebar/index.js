@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getSuggestedProfiles } from "../../firebase/service";
+import { getSuggestedProfiles, getSuggestedProfilesForNewUser } from "../../firebase/service";
 import "../../styles/sidebar.scss";
 import UserContext from "../../context/UserContext";
 import User from "./user";
@@ -12,11 +12,21 @@ function Sidebar() {
 
   useEffect(() => {
     async function suggestedProfiles() {
+      if(following && following.length){
       const Profiles = await getSuggestedProfiles(userId,following);
-      setProfiles(Profiles);
+      setProfiles(Profiles);}
     }
-    if(following){
-      suggestedProfiles();
+
+    async function SuggestedProfilesForNewUser() {
+      if(userId){
+      const Profiless = await getSuggestedProfilesForNewUser(userId);
+      setProfiles(Profiless);}
+    }
+
+    if(following && following.length){
+       return suggestedProfiles();
+    }else {
+      return SuggestedProfilesForNewUser()
     }
   }, [userId,following]);
 

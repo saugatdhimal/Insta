@@ -39,6 +39,19 @@ export async function getSuggestedProfiles(userId, following) {
     .filter((post) => post.userId !== userId);
 }
 
+export async function getSuggestedProfilesForNewUser(userId) {
+  const result = await db
+    .collection("users")
+    .where("userId", "!=", userId)
+    .limit(6)
+    .get();
+
+  return result.docs
+    .map((item) => item.data())
+}
+
+
+
 export async function getFollowedProfiles(following) {
   const result = await db
     .collection("users")
@@ -97,6 +110,7 @@ export async function getfollowingUsersPosts(following) {
     .get();
 
   const followingUsersPosts = result.docs.map((item) => ({...item.data(), docId: item.id}));
+  
   return followingUsersPosts;
 }
 

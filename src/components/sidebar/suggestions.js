@@ -7,7 +7,7 @@ function Suggestions({profiles, userId}) {
     <div className="sidebar__suggestions">
       <p className="suggestionsForYou">Suggestions For You</p>
       {!profiles ? (
-        <Skeleton count={4} height={50} />
+        <Skeleton count={6} height={50} style={{marginBottom: '10px'}}/>
       ) : (
         profiles.map((item) => (
           <SuggestedProfiles

@@ -7,7 +7,7 @@ import "../styles/timeline.scss";
 import Post from "./post";
 
 function Timeline() {
-  const [followedProfiles, setFollowedProfiles] = useState();
+  const [followedProfiles, setFollowedProfiles] = useState([]);
   const {
     user: { following, username },
   } = useContext(UserContext);
@@ -19,7 +19,7 @@ function Timeline() {
       setFollowedProfiles(FollowedProfiles);
     }
 
-    if (following) {
+    if (following && following.length) {
       followedProfiles();
     }
   }, [following]);
@@ -42,7 +42,7 @@ function Timeline() {
               style={{ marginRight: "21px" }}
             />{" "}
           </div>
-        ) : (
+        ) : !followedProfiles.length ? <p>Welcome to Instagram , You haven't followed anyone, Follow others to see their Posts.</p> : (
           followedProfiles.map((profile) => (
             <div className="timeline__profileImg" key={profile.userId}>
               <Link to={`/p/${profile.username}`}>
@@ -59,9 +59,9 @@ function Timeline() {
           ))
         )}
       </div>
-      <div className="timeline__post">
+      {following && following.length ? <div className="timeline__post">
         <Post following={following} username={username}/>
-      </div>
+      </div> : ''}
     </div>
   );
 }

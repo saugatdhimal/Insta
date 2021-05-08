@@ -30,23 +30,10 @@
         color: inherit;
       }
       svg {
-        height: 30px;
+        width: 27px;
         cursor: pointer;
       }
-      button {
-        height: 30px;
-        width: 80px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        border-radius: 3px;
-        border: transparent;
-        box-shadow: 0px 2px 4px $grayPrimary;
-        background-color: $red;
-        &:hover {
-          opacity: 60%;
-        }
-      }
+
       img {
         width: 30px;
         height: 30px;
