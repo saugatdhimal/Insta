@@ -7,13 +7,14 @@ import Comment from "./comment";
 import Skeleton from "react-loading-skeleton";
 
 function Post({ following, username }) {
-  const [followingUsersPosts, setFollowingUsersPosts] = useState("");
+  const [followingUsersPosts, setFollowingUsersPosts] = useState();
   useEffect(() => {
-  
     async function letsGetFollowingUsersPosts() {
       if (following && following.length) {
         const posts = await getfollowingUsersPosts(following);
         setFollowingUsersPosts(posts);
+      } else {
+        setFollowingUsersPosts(following)
       }
     }
 
@@ -22,7 +23,13 @@ function Post({ following, username }) {
   }, [following]);
   return (
     <div className="post">
-      {followingUsersPosts ? (
+      {!followingUsersPosts ? (
+        <Skeleton
+          count={1}
+          height={700}
+          style={{ border: "1px solid #dbdbdb" }}
+        />
+      ) : followingUsersPosts.length < 1 ? <p>No post</p> : (
         followingUsersPosts.map((post) => (
           <div className="post__cont" key={post.dateCreated}>
             <PostHeader
@@ -40,12 +47,6 @@ function Post({ following, username }) {
             />
           </div>
         ))
-      ) : (
-        <Skeleton
-          count={1}
-          height={700}
-          style={{ border: "1px solid #dbdbdb" }}
-        />
       )}
     </div>
   );
