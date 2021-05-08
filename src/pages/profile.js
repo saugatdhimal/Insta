@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import FallbackLoading from "../components/fallbackLoading";
 import Footer from "../components/footer";
 import Header from "../components/header";
+import ProfilePostImages from "../components/profile/profilePostImages";
 import UserContext from "../context/UserContext";
 import { db, storage } from "../firebase/firebase";
 import {
@@ -23,7 +24,7 @@ function Profile({ user }) {
   const [createUser, setCreateUser] = useState(false);
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
-  const [userPosts, setUserPosts] = useState('')
+  const [userPosts, setUserPosts] = useState('');
   const [postImage, setPostImage] = useState(null);
   const [progress, setProgress] = useState(0);
   const history = useHistory();
@@ -171,7 +172,7 @@ function Profile({ user }) {
     );
   };
 
-  return profileUser ? (
+  return profileUser && userPosts? (
     <div className="profile">
       <Header user={user} />
       <div className="profile__body">
@@ -314,9 +315,7 @@ function Profile({ user }) {
               tagged
             </p>
           </div>
-          <div className="profile__postGrid">
-            {userPosts && userPosts.map((post) => (<img src={post.postImageUrl} alt='' key={post.dateCreated} />))}
-          </div>
+          <ProfilePostImages userPosts={userPosts}/>
         </div>
       </div>
       <Footer />

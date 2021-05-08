@@ -11,7 +11,7 @@ function Icons({ username, docId, likes }) {
     } else {
       setLiked(false);
     }
-  }, []);
+  }, [username, likes]);
 
   const handleLike = async (e) => {
     e.preventDefault()

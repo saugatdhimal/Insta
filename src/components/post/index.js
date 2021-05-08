@@ -4,6 +4,7 @@ import PostHeader from "./postHeader";
 import Image from "./image";
 import Icons from "./icons";
 import Comment from "./comment";
+import Skeleton from "react-loading-skeleton";
 
 function Post({ following, username }) {
   const [followingUsersPosts, setFollowingUsersPosts] = useState("");
@@ -26,7 +27,7 @@ function Post({ following, username }) {
   }, [following]);
   return (
     <div className="post">
-      {followingUsersPosts &&
+      {followingUsersPosts ?
         followingUsersPosts.map((post) => (
           <div className="post__cont" key={post.dateCreated}>
             <PostHeader username={post.username} imageSrc={post.profileImageUrl}/>
@@ -34,7 +35,7 @@ function Post({ following, username }) {
             <Icons username={username} docId={post.docId} likes={post.likes}/>
             <Comment postUsername={post.username} caption={post.caption} allComments={post.comments} username={username} docId={post.docId}/>
           </div>
-        ))}
+        )) : <Skeleton count={1} height={700} style={{border: '1px solid #dbdbdb'}}/>}
     </div>
   );
 }

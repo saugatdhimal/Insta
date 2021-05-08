@@ -12,10 +12,10 @@ function Comment({
 }) {
   const [comments, setComments] = useState(allComments);
   const [comment, setComment] = useState("");
-  const [commentsSlice, setCommentsSlice] = useState(3);
+  const [commentsSlice, setCommentsSlice] = useState(2);
 
   const viewMoreComments = () => {
-    setCommentsSlice(commentsSlice + 3);
+    setCommentsSlice(commentsSlice + 2);
   };
 
   const handleSubmitComment = async (event) => {
@@ -40,7 +40,7 @@ function Comment({
         <p>
           <span>{postUsername}</span> {caption}
         </p>
-        {comments.length >= 3 && commentsSlice < comments.length && (
+        {comments.length >= 2 && commentsSlice < comments.length && (
           <p onClick={viewMoreComments} className="gray">
             View more comments
           </p>

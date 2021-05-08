@@ -97,7 +97,6 @@ export async function getfollowingUsersPosts(following) {
     .get();
 
   const followingUsersPosts = result.docs.map((item) => ({...item.data(), docId: item.id}));
-  console.log(followingUsersPosts)
   return followingUsersPosts;
 }
 
