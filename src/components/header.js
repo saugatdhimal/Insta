@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { auth } from "../firebase/firebase";

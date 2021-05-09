@@ -26,7 +26,6 @@ function Profile({ user }) {
   const [image, setImage] = useState(null);
   const [userPosts, setUserPosts] = useState('');
   const [postImage, setPostImage] = useState(null);
-  const [progress, setProgress] = useState(0);
   const history = useHistory();
 
   useEffect(() => {
