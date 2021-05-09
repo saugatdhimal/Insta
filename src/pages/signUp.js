@@ -11,7 +11,6 @@ function SignUp() {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const isInvalid = password === "";
   const history = useHistory();
 
   useEffect(() => {
@@ -34,10 +33,9 @@ function SignUp() {
               emailAddress: emailAddress.toLowerCase(),
               following: [],
               followers: [],
-              imageUrl: '',
+              imageUrl: "",
               dateCreated: Date.now(),
-            })
-            
+            });
           });
         history.push("/");
       } catch (error) {
@@ -63,17 +61,14 @@ function SignUp() {
         <div className="signup__form">
           <img src="/images/logo.png" alt="instagram logo" />
           {error && <p className="signup__error">{error}</p>}
-          <form
-            onSubmit={handleSignUp}
-            method="POST"
-          >
+          <form onSubmit={handleSignUp} method="POST">
             <input
               aria-label="Enter your username"
               type="text"
               placeholder="Username"
               onChange={({ target }) => setUsername(target.value)}
               value={username}
-              required={true}
+              required
             />
             <input
               aria-label="Enter your full name"
@@ -81,7 +76,7 @@ function SignUp() {
               placeholder="Full name"
               onChange={({ target }) => setFullName(target.value)}
               value={fullName}
-              required={true}
+              required
             />
             <input
               aria-label="Enter your email address"
@@ -89,6 +84,7 @@ function SignUp() {
               placeholder="Email address"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
+              required
             />
             <input
               aria-label="Enter your password"
@@ -96,14 +92,9 @@ function SignUp() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
-            <button
-              disabled={isInvalid}
-              type="submit"
-              className={isInvalid ? "btnInvalid" : ""}
-            >
-              Sign Up
-            </button>
+            <button type="submit">Sign Up</button>
           </form>
           <div>
             Already have an account? <Link to={LOGIN}>Login</Link>
