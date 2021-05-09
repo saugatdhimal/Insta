@@ -47,6 +47,7 @@ function Login() {
               placeholder="Email address"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
+              required
             />
             <input
               aria-label="Enter your password"
@@ -54,8 +55,9 @@ function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
-            <button disabled={isInvalid} type="submit" className={isInvalid ? 'btnInvalid' : ''}>
+            <button type="submit">
               Log In
             </button>
           </form>
