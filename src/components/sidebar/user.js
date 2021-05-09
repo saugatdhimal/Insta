@@ -7,7 +7,8 @@ function User({ username, fullName, imageUrl }) {
     <div className="sidebar__top">
       <div className="sidebar__topLeft">
         {!imageUrl ? (
-          <Skeleton circle count={1} height={65} width={65} />
+          <img src='/images/default.png' alt=""/>
+          // <Skeleton circle count={1} height={65} width={65} />
         ) : (
           <Link to={`/p/${username}`}>
             <img

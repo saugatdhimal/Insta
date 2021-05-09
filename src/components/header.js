@@ -31,7 +31,8 @@ function Header({ user }) {
               </svg>
             </Link>
             {!imageUrl ? (
-              <Skeleton circle count={1} height={30} width={30} />
+              <img src="/images/default.png" alt=""/>
+              // <Skeleton circle count={1} height={30} width={30} />
             ) : (
               <Link to={`/p/${username}`}>
                 <img

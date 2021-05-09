@@ -29,7 +29,7 @@ function Post({ following, username }) {
           height={700}
           style={{ border: "1px solid #dbdbdb" }}
         />
-      ) : followingUsersPosts.length < 1 ? <p>No post</p> : (
+      ) : followingUsersPosts.length < 1 ? '' : (
         followingUsersPosts.map((post) => (
           <div className="post__cont" key={post.dateCreated}>
             <PostHeader

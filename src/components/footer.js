@@ -5,16 +5,22 @@ function Footer() {
     return (
         <div className="footer">
             <div className="footer__top">
+                <div>
                 <p>about</p>
                 <p>Blog</p>
                 <p>jobs</p>
+                </div>
+                <div>
                 <p>help</p>
                 <p>api</p>
                 <p>privacy</p>
+                </div>
+                <div>
                 <p>terms</p>
                 <p>Top Accounts</p>
                 <p>hastags</p>
                 <p>locations</p>
+                </div>
             </div>
             <div className="footer__bottom">
             <p>english </p>

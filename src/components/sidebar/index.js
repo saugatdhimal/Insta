@@ -12,9 +12,9 @@ function Sidebar() {
 
   useEffect(() => {
     async function suggestedProfiles() {
-      if(following && following.length){
+      
       const Profiles = await getSuggestedProfiles(userId,following);
-      setProfiles(Profiles);}
+      setProfiles(Profiles);
     }
 
     async function SuggestedProfilesForNewUser() {

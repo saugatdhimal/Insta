@@ -202,6 +202,7 @@ function Profile({ user }) {
                   />
                 </svg>
               </p>
+              <div className="profile__button">
               {user.userId === profileUser.userId ? (
                 <>
                   <label htmlFor="image">
@@ -224,11 +225,13 @@ function Profile({ user }) {
                   {!followed ? "Follow" : "Unfollow"}
                 </button>
               )}
+              </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 cursor="pointer"
+                className="dot__svg"
               >
                 <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
               </svg>

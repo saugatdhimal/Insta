@@ -13,6 +13,7 @@ function Timeline() {
   } = useContext(UserContext);
 
   useEffect(() => {
+    
     document.title = "Instagram";
     async function followedProfiles() {
       const FollowedProfiles = await getFollowedProfiles(following);
@@ -29,21 +30,38 @@ function Timeline() {
     <div className="timeline">
       <div className="timeline__top">
         {!followedProfiles ? (
-          <div className="timeline__profileSkeleton">
+          <>
+          <div className="timeline__profileSkeleton1">
             <Skeleton
               circle
-              count={7}
+              count={6}
               height={60}
               width={60}
-              style={{ marginRight: "21px" }}
+              style={{ marginRight: "21px", overflow: 'hidden' }}
             />
             <Skeleton
               circle
-              count={7}
+              count={6}
               width={60}
               style={{ marginRight: "21px" }}
             />{" "}
           </div>
+          <div className="timeline__profileSkeleton2">
+          <Skeleton
+              circle
+              count={2}
+              height={60}
+              width={60}
+              style={{ marginRight: "21px", overflow: 'hidden' }}
+            />
+            <Skeleton
+              circle
+              count={2}
+              width={60}
+              style={{ marginRight: "21px" }}
+            />{" "}
+        </div>
+        </>
         ) : followedProfiles.length < 1 ? <p>Welcome to Instagram , You haven't followed anyone, Follow others to see their Posts.</p> : (
           followedProfiles.map((profile) => (
             <div className="timeline__profileImg" key={profile.userId}>

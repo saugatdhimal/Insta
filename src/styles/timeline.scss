@@ -1,52 +1,71 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 .timeline {
+  margin-bottom: 20px;
+  .timeline__top {
+    height: 110px;
+    border: 1px solid $grayPrimary;
+    border-radius: 3px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
     margin-bottom: 20px;
-    .timeline__top{
-        height: 110px;
+    overflow-x: scroll;
+
+    .timeline__profileSkeleton1,
+    .timeline__profileSkeleton2 {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .timeline__profileSkeleton1 {
+        display: none;
+      @media (min-width: 768px) {
+        display: flex;
+      }
+    }
+
+    .timeline__profileSkeleton2 {
+        display: flex;
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+    .timeline__profileImg {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 5px;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+  .timeline__top::-webkit-scrollbar {
+    display: none;
+  }
+  .timeline__post {
+    .post {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      .post__cont {
         border: 1px solid $grayPrimary;
         border-radius: 3px;
         background-color: white;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding: 0 20px;
-        margin-bottom: 20px;
-        .timeline__profileSkeleton {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-        .timeline__profileImg {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            gap: 5px;
-            a {
-                text-decoration: none;
-                color: inherit;
-            }
-            img {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-            }
-            p{
-                font-size: 13px;
-            }
-        }
+      }
     }
-    .timeline__post {
-        .post {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            .post__cont {
-                border: 1px solid $grayPrimary;
-                border-radius: 3px;
-                background-color: white;
-            }
-        }
-    }
+  }
 }
