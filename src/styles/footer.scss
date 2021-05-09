@@ -6,6 +6,11 @@
         display: flex;
         justify-content: space-evenly;
         padding-bottom: 20px;
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
         p {
             font-size: 13px;
             color: $graySecondary;
@@ -19,8 +24,9 @@
     .footer {
     .footer__top, .footer__bottom {
         justify-content: center;
+        gap: 20px;
         div {
-            display: flex;
+            flex-direction: row;
             gap: 20px;
         }
     }}

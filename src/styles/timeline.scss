@@ -69,3 +69,13 @@
     }
   }
 }
+
+.timeline__suggestions {
+    padding: 20px;
+}
+
+@media (min-width: 1000px) {
+    .timeline__suggestions {
+        display: none;
+    }
+}

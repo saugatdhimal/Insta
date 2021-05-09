@@ -5,6 +5,7 @@ import UserContext from "../context/UserContext";
 import { getFollowedProfiles } from "../firebase/service";
 import "../styles/timeline.scss";
 import Post from "./post";
+import Sidebar from "./sidebar";
 
 function Timeline() {
   const [followedProfiles, setFollowedProfiles] = useState();
@@ -13,7 +14,6 @@ function Timeline() {
   } = useContext(UserContext);
 
   useEffect(() => {
-    
     document.title = "Instagram";
     async function followedProfiles() {
       const FollowedProfiles = await getFollowedProfiles(following);
@@ -81,6 +81,9 @@ function Timeline() {
       </div>
       <div className="timeline__post">
         <Post following={following} username={username}/>
+      </div>
+      <div className="timeline__suggestions">
+      <Sidebar />
       </div>
     </div>
   );

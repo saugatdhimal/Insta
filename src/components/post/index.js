@@ -5,6 +5,7 @@ import Image from "./image";
 import Icons from "./icons";
 import Comment from "./comment";
 import Skeleton from "react-loading-skeleton";
+import Sidebar from "../sidebar";
 
 function Post({ following, username }) {
   const [followingUsersPosts, setFollowingUsersPosts] = useState();
