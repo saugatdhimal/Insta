@@ -237,7 +237,7 @@ function Profile({ user }) {
             </div>
             <div className="profile__pff">
               <p>
-                <span>500</span> posts
+                <span>{userPosts?.length}</span> posts
               </p>
               <p>
                 <span>{profileUser.followers.length}</span> followers

@@ -73,8 +73,7 @@
 
 .profile__pff {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   span {
     font-weight: 600;
@@ -182,12 +181,7 @@
   }
 
   .profile__pff {
-    display: flex;
-    flex-direction: row;
     gap: 40px;
-    span {
-      font-weight: 600;
-    }
   }
 }
 
