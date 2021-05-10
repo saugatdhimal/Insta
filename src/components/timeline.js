@@ -62,7 +62,7 @@ function Timeline() {
             />{" "}
         </div>
         </>
-        ) : followedProfiles.length < 1 ? <p>Welcome to Instagram , You haven't followed anyone, Follow others to see their Posts.</p> : (
+        ) : followedProfiles.length < 1 ? <p>You haven't followed anyone, Follow others to see their Posts.</p> : (
           followedProfiles.map((profile) => (
             <div className="timeline__profileImg" key={profile.userId}>
               <Link to={`/p/${profile.username}`}>
@@ -83,7 +83,7 @@ function Timeline() {
         <Post following={following} username={username}/>
       </div>
       <div className="timeline__suggestions">
-      <Sidebar />
+      {following && following.length ? <Sidebar /> : ''}
       </div>
     </div>
   );

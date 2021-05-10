@@ -1,6 +1,7 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 
 function User({ username, fullName, imageUrl }) {
   return (
@@ -34,7 +35,7 @@ function User({ username, fullName, imageUrl }) {
         </div>
       </div>
       <div className="sidebar__topRight">
-        <button>Switch</button>
+        <button onClick={() => auth.signOut()}>Sign Out</button>
       </div>
     </div>
   );

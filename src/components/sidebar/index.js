@@ -5,7 +5,7 @@ import UserContext from "../../context/UserContext";
 import User from "./user";
 import Suggestions from "./suggestions";
 
-function Sidebar() {
+function Sidebar({showUser}) {
   const [profiles, setProfiles] = useState()
   const {user: {userId, following, username, fullName, imageUrl}} = useContext(UserContext)
   
@@ -33,7 +33,7 @@ function Sidebar() {
   
   return (
     <div className="sidebar">
-      <User username={username} fullName={fullName} imageUrl={imageUrl} />
+      {showUser && <User username={username} fullName={fullName} imageUrl={imageUrl} />}
       <Suggestions profiles={profiles} userId={userId}/>
     </div>
   );

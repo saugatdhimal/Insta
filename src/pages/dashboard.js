@@ -5,7 +5,6 @@ import Timeline from "../components/timeline";
 import "../styles/dashboard.scss";
 import Footer from '../components/footer'
 function Dashboard({user}) {
-  
   return (
     <div className="dashboard">
       <Header user={user}/>
@@ -14,7 +13,7 @@ function Dashboard({user}) {
         <Timeline/>
         </div>
         <div className="dashboard__sidebar">
-          <Sidebar/>
+          <Sidebar showUser/>
         </div>
       </div>
       <Footer />

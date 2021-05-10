@@ -5,6 +5,7 @@ import Image from "./image";
 import Icons from "./icons";
 import Comment from "./comment";
 import Skeleton from "react-loading-skeleton";
+import Sidebar from "../sidebar";
 
 function Post({ following, username }) {
   const [followingUsersPosts, setFollowingUsersPosts] = useState();
@@ -29,7 +30,7 @@ function Post({ following, username }) {
           height={700}
           style={{ border: "1px solid #dbdbdb" }}
         />
-      ) : followingUsersPosts.length < 1 ? '' : (
+      ) : followingUsersPosts.length < 1 ? <div style={{padding: '0 20px'}}><Sidebar /></div> : (
         followingUsersPosts.map((post) => (
           <div className="post__cont" key={post.dateCreated}>
             <PostHeader
