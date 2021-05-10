@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import Timeline from "../components/timeline";
 import "../styles/dashboard.scss";
 import Footer from '../components/footer'
+import UserContext from "../context/UserContext";
 function Dashboard({user}) {
+  const {
+    user: { following},
+  } = useContext(UserContext);
   return (
     <div className="dashboard">
       <Header user={user}/>
@@ -13,7 +17,7 @@ function Dashboard({user}) {
         <Timeline/>
         </div>
         <div className="dashboard__sidebar">
-          <Sidebar showUser/>
+          {following && following.length ? <Sidebar showUser/> : ''}
         </div>
       </div>
       <Footer />
