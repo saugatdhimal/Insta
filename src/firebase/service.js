@@ -105,7 +105,6 @@ export async function getfollowingUsersPosts(following) {
   const result = await db
     .collection("posts")
     .where("userId", "in", following)
-    .limit(6)
     .orderBy("dateCreated", "desc")
     .get();
 
