@@ -6,6 +6,11 @@
   height: 53px;
   background-color: white;
   border-bottom: 1px solid $grayPrimary;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   .header__container {
     display: flex;
     justify-content: space-between;

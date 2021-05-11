@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../styles/postHeader.scss";
 
 function PostHeader({username, imageSrc}) {
   return (
     <div className="postHeader">
       <div className="postHeader__profile">
+        <Link to={`/p/${username}`}>
         <img
           src={imageSrc}
           alt="profile"
@@ -12,7 +14,10 @@ function PostHeader({username, imageSrc}) {
             e.target.src = `/images/default.png`;
           }}
         />
+        </Link>
+        <Link to={`/p/${username}`}>
         <p>{username}</p>
+        </Link>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

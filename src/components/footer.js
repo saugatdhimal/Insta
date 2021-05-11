@@ -17,7 +17,6 @@ function Footer() {
                 </div>
                 <div>
                 <p>terms</p>
-                <p>Top Accounts</p>
                 <p>hastags</p>
                 <p>locations</p>
                 </div>

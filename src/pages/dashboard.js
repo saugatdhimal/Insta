@@ -15,12 +15,14 @@ function Dashboard({user}) {
       <div className="dashboard__body">
         <div className="dashboard__timline">
         <Timeline/>
+        <Footer />
         </div>
+        <div style={{position: 'relative'}}>
         <div className="dashboard__sidebar">
           {following && following.length ? <Sidebar showUser/> : ''}
         </div>
+        </div>
       </div>
-      <Footer />
     </div>
   );
 }
